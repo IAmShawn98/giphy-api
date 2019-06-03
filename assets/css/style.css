@@ -1,0 +1,15 @@
+.navbar {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    margin: auto;
+}
+
+.btnTopic:hover {
+    border: 0;
+    background-color: #5cb85c;
+}
+
+.text-pink {
+    color: #FFC0CB;
+}
