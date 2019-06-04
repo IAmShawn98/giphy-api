@@ -28,29 +28,31 @@ $(document).ready(function () {
     $(".btnTopic").on("click", function () {
         // The URL we want to request from GIPHY.
         var dataTopic = $(this).attr("data-topic");
-        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + dataTopic + "&api_key=icyGNe9304U63z9nyeNrf6m75D7Wf2yP";
-        
+        var queryURL = "https://api.giphy.com/v1/gifs/random?&api_key=icyGNe9304U63z9nyeNrf6m75D7Wf2yP&tag=" + dataTopic + "";
+
         // Request API Data.
         $.ajax({
             url: queryURL,
-            type: "GET"
-        }).then(function (response) {
-            console.log(response.data);
-            var results = response.data[0].images;
+            type: "GET",
+            success: function (response) {
+                console.log(response);
 
-            // Store gifs in this variable.
-            var imageURL = results.downsized_still.url;
+                // Store gifs in this variable.
+                var results = response.data;
 
-            // Create image element.
-            var img = $("<img height='150' width='150'>");
+                var imageURL = results.fixed_height_small_url;
 
-            // Image Attributes.
-            img.attr("src", imageURL);
-            img.attr("alt", "Image");
-            img.attr("style", "padding: 5px;")
+                // Create image element.
+                var img = $("<img height='150' width='150'>");
 
-            // Populate image.
-            $("#thoughtPopulation").prepend(img);
+                // Image Attributes.
+                img.attr("src", imageURL);
+                img.attr("alt", "Image");
+                img.attr("style", "padding: 5px;")
+
+                // Populate image.
+                $("#thoughtPopulation").prepend(img);
+            }
         })
     })
 });
