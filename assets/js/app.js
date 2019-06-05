@@ -11,7 +11,6 @@ $(document).ready(function () {
         "music",
     ];
 
-
     // This loop prepends a button for each string in the 'topics' array.
     for (var i = 0; i < topics.length; i++) {
         // Create a button.
@@ -39,7 +38,7 @@ $(document).ready(function () {
         var userBtn = $("<button>" + userDefinedGifs + "</button>");
 
         // btn attributes.
-        userBtn.attr("class", "btn btn-warning m-2 btnTopic");
+        userBtn.attr("class", "btn btn-warning m-2 btnTopic bounceIn");
         userBtn.attr("data-topic", userDefinedGifs);
         userBtn.on("click", function () {
             apiRequestGifs();
@@ -103,7 +102,6 @@ $(document).ready(function () {
                         $(this).attr("data-state", "still");
                     }
                 });
-
                 // Populate image.
                 $("#thoughtPopulation").prepend(img);
             }
