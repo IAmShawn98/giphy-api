@@ -11,6 +11,7 @@ $(document).ready(function () {
         "music",
     ];
 
+
     // This loop prepends a button for each string in the 'topics' array.
     for (var i = 0; i < topics.length; i++) {
         // Create a button.
@@ -24,6 +25,11 @@ $(document).ready(function () {
         $("#btnDisplay").prepend(btn);
     }
 
+    // When the user clicks on a button, populate the topic to 'thoughtPopulation'.
+    $(".btnTopic").on("click", function () {
+        apiRequestGifs();
+    })
+
     // When the user submits a new button, built it out.
     $("#btnNewThought").on('click', function () {
         // Grab the value of the input so we can create a custom button.
@@ -35,14 +41,16 @@ $(document).ready(function () {
         // btn attributes.
         userBtn.attr("class", "btn btn-warning m-2 btnTopic");
         userBtn.attr("data-topic", userDefinedGifs);
+        userBtn.on("click", function () {
+            apiRequestGifs();
+        })
 
         // Populate Buttons.
         $("#btnDisplay").prepend(userBtn);
-
     });
 
-    // When the user clicks on a button, populate the topic to 'thoughtPopulation'.
-    $(".btnTopic").on("click", function () {
+    // This function makes a request to the giphy API to grab images based on the dynamic button topics.
+    function apiRequestGifs() {
         // Remove pre-population message.
         $("#prePopulationMessage").hide();
 
@@ -81,7 +89,7 @@ $(document).ready(function () {
                 img.attr("data-animate", imageAnimated);
 
                 // When a user clicks on a gif, animate it.
-                $(".gif").on('click', function () {
+                img.on('click', function () {
                     // Define our data state.
                     var dataState = $(this).attr("data-state");
                     // If the image is still, animate it.
@@ -100,5 +108,5 @@ $(document).ready(function () {
                 $("#thoughtPopulation").prepend(img);
             }
         })
-    })
+    }
 });
