@@ -24,8 +24,28 @@ $(document).ready(function () {
         $("#btnDisplay").prepend(btn);
     }
 
+    // When the user submits a new button, built it out.
+    $("#btnNewThought").on('click', function () {
+        // Grab the value of the input so we can create a custom button.
+        var userDefinedGifs = document.getElementById("userDefinedGifs").value;
+
+        // Create a button.
+        var userBtn = $("<button>" + userDefinedGifs + "</button>");
+
+        // btn attributes.
+        userBtn.attr("class", "btn btn-warning m-2 btnTopic");
+        userBtn.attr("data-topic", userDefinedGifs);
+
+        // Populate Buttons.
+        $("#btnDisplay").prepend(userBtn);
+
+    });
+
     // When the user clicks on a button, populate the topic to 'thoughtPopulation'.
     $(".btnTopic").on("click", function () {
+        // Remove pre-population message.
+        $("#prePopulationMessage").hide();
+
         // Grab data from the 'data-topic' button attribute so we can use it in our query.
         var dataTopic = $(this).attr("data-topic");
 
