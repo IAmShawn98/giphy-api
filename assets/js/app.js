@@ -26,9 +26,10 @@ $(document).ready(function () {
 
     // When the user clicks on a button, populate the topic to 'thoughtPopulation'.
     $(".btnTopic").on("click", function () {
-        // The URL we want to request from GIPHY.
-
+        // Grab data from the 'data-topic' button attribute so we can use it in our query.
         var dataTopic = $(this).attr("data-topic");
+
+        // The URL we want to request from GIPHY.
         var queryURL = "https://api.giphy.com/v1/gifs/random?&api_key=icyGNe9304U63z9nyeNrf6m75D7Wf2yP&tag=" + dataTopic + "";
 
         // Request API Data.
@@ -36,6 +37,7 @@ $(document).ready(function () {
             url: queryURL,
             type: "GET",
             success: function (response) {
+                // Log response data object so we can read it's values from the console.
                 console.log(response);
 
                 // Stores the object in this variable.
@@ -60,21 +62,19 @@ $(document).ready(function () {
 
                 // When a user clicks on a gif, animate it.
                 $(".gif").on('click', function () {
+                    // Define our data state.
                     var dataState = $(this).attr("data-state");
+                    // If the image is still, animate it.
                     if (dataState === "still") {
+                        // Animated dataState.
                         $(this).attr("src", $(this).attr("data-animate"));
                         $(this).attr("data-state", "animate");
                     } else {
+                        // Still dataState.
                         $(this).attr("src", $(this).attr("data-still"));
                         $(this).attr("data-state", "still");
                     }
                 });
-
-
-
-
-
-
 
                 // Populate image.
                 $("#thoughtPopulation").prepend(img);
