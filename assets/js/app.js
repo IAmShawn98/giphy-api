@@ -57,7 +57,7 @@ $(document).ready(function () {
         var dataTopic = $(this).attr("data-topic");
 
         // The URL we want to request from GIPHY.
-        var queryURL = "https://api.giphy.com/v1/gifs/random?&api_key=icyGNe9304U63z9nyeNrf6m75D7Wf2yP&tag=" + dataTopic + "";
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + dataTopic + "&api_key=icyGNe9304U63z9nyeNrf6m75D7Wf2yP&limit=21";
 
         // Request API Data.
         $.ajax({
@@ -70,40 +70,45 @@ $(document).ready(function () {
                 // Stores the object in this variable.
                 var results = response.data;
 
-                // Stores the 'STILL' images.
-                var imageStill = results.fixed_height_small_still_url;
+                // Loop through the repsonse object and get all of our images.
+                for (var i = 0; i < results.length; i++) {
 
-                // Stores the 'ANIMATED' images.
-                var imageAnimated = results.fixed_width_small_url;
+                    // Stores the 'STILL' images.
+                    var imageStill = results[i].images.fixed_height_small_still.url;
 
-                // Create image element.
-                var img = $("<img height='150' width='150'>");
+                    // Stores the 'ANIMATED' images.
+                    var imageAnimated = results[i].images.fixed_width_small.url;
 
-                // Image Attributes.
-                img.attr("src", imageStill);
-                img.attr("class", "gif")
-                img.attr("alt", "Image");
-                img.attr("style", "cursor: pointer; padding: 5px;");
-                img.attr("data-still", imageStill);
-                img.attr("data-animate", imageAnimated);
+                    // Create image element.
+                    var img = $("<img height='150' width='150'>");
 
-                // When a user clicks on a gif, animate it.
-                img.on('click', function () {
-                    // Define our data state.
-                    var dataState = $(this).attr("data-state");
-                    // If the image is still, animate it.
-                    if (dataState === "still") {
-                        // Animated dataState.
-                        $(this).attr("src", $(this).attr("data-animate"));
-                        $(this).attr("data-state", "animate");
-                    } else {
-                        // Still dataState.
-                        $(this).attr("src", $(this).attr("data-still"));
-                        $(this).attr("data-state", "still");
-                    }
-                });
-                // Populate image.
-                $("#thoughtPopulation").prepend(img);
+
+                    // Image Attributes.
+                    img.attr("src", imageStill);
+                    img.attr("class", "gif")
+                    img.attr("alt", "Image");
+                    img.attr("style", "cursor: pointer; padding: 5px;");
+                    img.attr("data-still", imageStill);
+                    img.attr("data-animate", imageAnimated);
+
+                    // When a user clicks on a gif, animate it.
+                    img.on('click', function () {
+                        // Define our data state.
+                        var dataState = $(this).attr("data-state");
+                        // If the image is still, animate it.
+                        if (dataState === "still") {
+                            // Animated dataState.
+                            $(this).attr("src", $(this).attr("data-animate"));
+                            $(this).attr("data-state", "animate");
+                        } else {
+                            // Still dataState.
+                            $(this).attr("src", $(this).attr("data-still"));
+                            $(this).attr("data-state", "still");
+                        }
+                    });
+                    // Populate image.
+                    $("#thoughtPopulation").prepend(img);
+                }
             }
         })
     }
