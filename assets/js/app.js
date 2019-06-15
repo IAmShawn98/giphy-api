@@ -24,11 +24,6 @@ $(document).ready(function () {
         $("#btnDisplay").prepend(btn);
     }
 
-    // When the user clicks on a button, populate the topic to 'thoughtPopulation'.
-    $(".btnTopic").on("click", function () {
-        apiRequestGifs();
-    })
-
     // When the user submits a new button, built it out.
     $("#btnNewThought").on('click', function () {
         // Grab the value of the input so we can create a custom button.
@@ -40,9 +35,6 @@ $(document).ready(function () {
         // btn attributes.
         userBtn.attr("class", "btn btn-warning m-2 btnTopic bounceIn");
         userBtn.attr("data-topic", userDefinedGifs);
-        userBtn.on("click", function () {
-            apiRequestGifs();
-        })
 
         // Populate Buttons.
         $("#btnDisplay").prepend(userBtn);
@@ -82,7 +74,6 @@ $(document).ready(function () {
                     // Create image element.
                     var img = $("<img height='150' width='150'>");
 
-
                     // Image Attributes.
                     img.attr("src", imageStill);
                     img.attr("class", "gif")
@@ -112,4 +103,7 @@ $(document).ready(function () {
             }
         })
     }
+
+    // When the user clicks on any of the buttons from the topic array, display gifs from that topic.
+    $(document).on("click", ".btnTopic", apiRequestGifs);
 });
